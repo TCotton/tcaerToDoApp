@@ -6,7 +6,12 @@ const webpack = require('webpack');
 module.exports = {
 	resolve: {
 		alias: {
-			Main: path.resolve(__dirname, 'app/components/Main.js'),
+			AddTodo: path.resolve(__dirname, 'app/components/AddTodo.js'),
+			Todo: path.resolve(__dirname, 'app/components/Todo.js'),
+			TodoApp: path.resolve(__dirname, 'app/components/TodoApp.js'),
+			TodoList: path.resolve(__dirname, 'app/components/TodoList.js'),
+			TodoSearch: path.resolve(__dirname, 'app/components/TodoSearch.js'),
+			TodoAPI: path.resolve(__dirname, 'app/api/TodoAPI.js'),
 		}
 	},
 	module: {
