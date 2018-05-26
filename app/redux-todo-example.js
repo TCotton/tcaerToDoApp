@@ -1,6 +1,12 @@
 import { createStore } from 'redux';
 
-const reducer = (state = { name: 'Anonymous' }, action) => {
+const reducer = (
+	state = {
+		todos: [],
+		searchText: '',
+		showCompleted: false,
+	},
+	action) => {
 	return state;
 };
 const store = createStore(reducer);
