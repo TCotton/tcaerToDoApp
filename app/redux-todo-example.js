@@ -33,6 +33,6 @@ store.dispatch({
 	searchText: 'work',
 });
 
-console.log('searchText should be '\'work\'', currentState);
+console.log('searchText should be work', currentState);
 
 
