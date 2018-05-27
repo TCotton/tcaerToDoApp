@@ -1,4 +1,4 @@
-import { createStore, compose } from 'redux';
+import { createStore, compose, combineReducers } from 'redux';
 
 const stateDefault = {
 	name: 'Anonymous',
@@ -7,58 +7,72 @@ const stateDefault = {
 };
 let nextHobbyId = 1;
 let nextMovieId = 1;
-const reducer = (state = stateDefault, action) => {
+let reducer = (state = stateDefault, action) => {
 
 	switch (action.type) {
-		case 'CHANGE_NAME':
-			return {
-				...state,
-				name: action.name
-			}
-		case 'ADD_HOBBY':
-			let newID = nextHobbyId++;
+		default:
+			return state;
+	}
+};
 
-			return {
+const nameReducer = (state = 'Anonymous', action) => {
+	switch (action.type) {
+		case 'CHANGE_NAME':
+			return action.name;
+		default:
+			return state;
+	}
+};
+
+const hobbiesReducer = (state = [], action) => {
+	switch (action.type) {
+		case 'ADD_HOBBY':
+			return [
 				...state,
-				hobbies: [
-					...state.hobbies,
-					{
-						id: newID,
-						hobby: action.name
-					}
-				]
-			};
+				{
+					id: nextHobbyId++,
+					hobby: action.name
+				}
+			]
 		case 'REMOVE_HOBBY':
 			return {
-				...state,
-				hobbies: state.hobbies.filter((hobby) => {
+				hobbies: state.filter((hobby) => {
 					return hobby.id !== action.id;
 				})
 			};
+		default:
+			return state;
+	}
+};
+
+const moviesReducer = (state = [], action) => {
+	switch (action.type) {
 		case 'ADD_MOVIE':
-			return {
+			return [
 				...state,
-				movies: [
-					...state.movies,
-					{
-						id: nextMovieId++,
-						title: action.title,
-						genre: action.genre
-					}
-				]
-			};
+				{
+					id: nextMovieId++,
+					title: action.title,
+					genre: action.genre
+
+				}
+			];
 		case 'REMOVE_MOVIE':
 			return {
-				...state,
-				movies: state.movies.filter((movie) => {
+				movies: state.filter((movie) => {
 					return movie.id !== action.id;
 				})
 			}
 		default:
 			return state;
 	}
-
 };
+
+reducer = combineReducers({
+	name: nameReducer,
+	hobbies: hobbiesReducer,
+	movies: moviesReducer,
+});
 
 const store = createStore(reducer, compose(
 	window.devToolsExtension ? window.devToolsExtension() : f => f,
