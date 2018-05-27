@@ -47,6 +47,13 @@ const reducer = (state = stateDefault, action) => {
 					}
 				]
 			};
+		case 'REMOVE_MOVIE':
+			return {
+				...state,
+				movies: state.movies.filter((movie) => {
+					return movie.id !== action.id;
+				})
+			}
 		default:
 			return state;
 	}
@@ -98,11 +105,18 @@ store.dispatch({
 });
 
 store.dispatch({
+	type: 'ADD_MOVIE',
+	title: 'Whatever Film',
+	genre: 'comedy'
+});
+
+store.dispatch({
 	type: 'REMOVE_HOBBY',
 	id: 1,
 });
 
-
-
-
+store.dispatch({
+	type: 'REMOVE_MOVIE',
+	id: 1,
+});
 
