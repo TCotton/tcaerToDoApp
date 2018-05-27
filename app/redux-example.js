@@ -1,20 +1,5 @@
 import { createStore, compose, combineReducers } from 'redux';
 
-const stateDefault = {
-	name: 'Anonymous',
-	hobbies: [],
-	movies: [],
-};
-let nextHobbyId = 1;
-let nextMovieId = 1;
-let reducer = (state = stateDefault, action) => {
-
-	switch (action.type) {
-		default:
-			return state;
-	}
-};
-
 const nameReducer = (state = 'Anonymous', action) => {
 	switch (action.type) {
 		case 'CHANGE_NAME':
@@ -23,6 +8,29 @@ const nameReducer = (state = 'Anonymous', action) => {
 			return state;
 	}
 };
+
+const changeName = (name) => {
+	return {
+		type: 'CHANGE_NAME',
+		name
+	}
+};
+
+const addHobby = (name) => {
+	return {
+		type: 'ADD_HOBBY',
+		name
+	}
+};
+
+const removeHobby = (id) => {
+	return {
+		type: 'REMOVE_HOBBY',
+		id
+	}
+};
+
+let nextHobbyId = 1;
 
 const hobbiesReducer = (state = [], action) => {
 	switch (action.type) {
@@ -44,6 +52,23 @@ const hobbiesReducer = (state = [], action) => {
 			return state;
 	}
 };
+
+const addMovie = (title, genre) => {
+	return {
+		type: 'ADD_HOBBY',
+		title,
+		genre
+	}
+};
+
+const removeMovie = (id) => {
+	return {
+		type: 'REMOVE_MOVIE',
+		id
+	}
+};
+
+let nextMovieId = 1;
 
 const moviesReducer = (state = [], action) => {
 	switch (action.type) {
@@ -68,7 +93,7 @@ const moviesReducer = (state = [], action) => {
 	}
 };
 
-reducer = combineReducers({
+let reducer = combineReducers({
 	name: nameReducer,
 	hobbies: hobbiesReducer,
 	movies: moviesReducer,
@@ -90,15 +115,14 @@ const unsubscribe = store.subscribe(() => {
 const currentState = store.getState();
 console.log('currentState', currentState);
 
+store.dispatch(changeName('Johnny'));
+
 store.dispatch({
 	type: 'CHANGE_NAME',
 	name: 'Andrew'
 });
 
-store.dispatch({
-	type: 'ADD_HOBBY',
-	name: 'Running'
-});
+store.dispatch(addHobby('running'));
 
 store.dispatch({
 	type: 'ADD_HOBBY',
@@ -112,11 +136,7 @@ store.dispatch({
 	name: 'Jim'
 });
 
-store.dispatch({
-	type: 'ADD_MOVIE',
-	title: 'Die Hard',
-	genre: 'Action film'
-});
+store.dispatch(addMovie('Die Hard', 'Action film'));
 
 store.dispatch({
 	type: 'ADD_MOVIE',
@@ -124,13 +144,6 @@ store.dispatch({
 	genre: 'comedy'
 });
 
-store.dispatch({
-	type: 'REMOVE_HOBBY',
-	id: 1,
-});
+store.dispatch(removeHobby(1));
 
-store.dispatch({
-	type: 'REMOVE_MOVIE',
-	id: 1,
-});
-
+store.dispatch(removeMovie(1));
