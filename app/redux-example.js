@@ -1,4 +1,5 @@
 import { createStore, compose, combineReducers } from 'redux';
+import axios from 'axios';
 
 const nameReducer = (state = 'Anonymous', action) => {
 	switch (action.type) {
@@ -93,10 +94,59 @@ const moviesReducer = (state = [], action) => {
 	}
 };
 
+const mapReducerDefaults = {
+	isFetching: false,
+	url: undefined,
+}
+
+// Map reducer and action generators
+// --------------------
+const mapReducer = (state = mapReducerDefaults, action) => {
+	switch (action.type) {
+		case 'START_LOCATION_FETCH':
+			return {
+				isFetching: true,
+				url: undefined,
+			};
+		case 'COMPLETE_LOCATION_FETCH':
+			return {
+				isFetching: false,
+				url: action.url,
+			};
+		default:
+			return state;
+	}
+}
+
+const startLocationFetch = () => {
+	return {
+		type: 'START_LOCATION_FETCH'
+	}
+};
+
+const completeLocationFetch = (url) => {
+	return {
+		type: 'COMPLETE_LOCATION_FETCH',
+		url,
+	}
+};
+
+const fetchLocation = () => {
+	store.dispatch(startLocationFetch());
+
+	axios.get('https://ipinfo.io/').then((res) => {
+		const loc = res.data.loc;
+		const baseUrl = 'https://www.google.com/maps?q=';
+
+		store.dispatch(completeLocationFetch(baseUrl + loc));
+	});
+};
+
 let reducer = combineReducers({
 	name: nameReducer,
 	hobbies: hobbiesReducer,
 	movies: moviesReducer,
+	map: mapReducer,
 });
 
 const store = createStore(reducer, compose(
@@ -108,9 +158,14 @@ const unsubscribe = store.subscribe(() => {
 	const state = store.getState();
 	console.dir(state);
 
-	document.getElementById('root').innerHTML = state.name;
-	console.log('name is', state.name);
+	if (state.map.isFetching) {
+		document.getElementById('root').innerHTML = 'Loading...';
+	} else if (state.map.url) {
+		document.getElementById('root').innerHTML = '<a href="' + state.map.url + '" target="_blank">View your location</a>';
+	}
 });
+
+fetchLocation();
 
 const currentState = store.getState();
 console.log('currentState', currentState);
