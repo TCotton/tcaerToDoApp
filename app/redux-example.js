@@ -16,15 +16,24 @@ const reducer = (state = stateDefault, action) => {
 				name: action.name
 			}
 		case 'ADD_HOBBY':
+			let newID = nextHobbyId++;
+
 			return {
 				...state,
 				hobbies: [
 					...state.hobbies,
 					{
-						id: nextHobbyId =+ 1,
+						id: newID,
 						hobby: action.name
 					}
 				]
+			};
+		case 'REMOVE_HOBBY':
+			return {
+				...state,
+				hobbies: state.hobbies.filter((hobby) => {
+					return hobby.id !== action.id;
+				})
 			};
 		case 'ADD_MOVIE':
 			return {
@@ -32,7 +41,7 @@ const reducer = (state = stateDefault, action) => {
 				movies: [
 					...state.movies,
 					{
-						id: nextMovieId += 1,
+						id: nextMovieId++,
 						title: action.title,
 						genre: action.genre
 					}
@@ -70,6 +79,11 @@ store.dispatch({
 	name: 'Running'
 });
 
+store.dispatch({
+	type: 'ADD_HOBBY',
+	name: 'Kung Fu'
+});
+
 // unsubscribe();
 
 store.dispatch({
@@ -81,6 +95,11 @@ store.dispatch({
 	type: 'ADD_MOVIE',
 	title: 'Die Hard',
 	genre: 'Action film'
+});
+
+store.dispatch({
+	type: 'REMOVE_HOBBY',
+	id: 1,
 });
 
 
