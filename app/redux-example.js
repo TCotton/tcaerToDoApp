@@ -117,32 +117,19 @@ console.log('currentState', currentState);
 
 store.dispatch(changeName('Johnny'));
 
-store.dispatch({
-	type: 'CHANGE_NAME',
-	name: 'Andrew'
-});
+store.dispatch(changeName('Andrew'));
 
 store.dispatch(addHobby('running'));
 
-store.dispatch({
-	type: 'ADD_HOBBY',
-	name: 'Kung Fu'
-});
+store.dispatch(addHobby('Kung Fu'));
 
 // unsubscribe();
 
-store.dispatch({
-	type: 'CHANGE_NAME',
-	name: 'Jim'
-});
+store.dispatch(changeName('Jim'));
 
 store.dispatch(addMovie('Die Hard', 'Action film'));
 
-store.dispatch({
-	type: 'ADD_MOVIE',
-	title: 'Whatever Film',
-	genre: 'comedy'
-});
+store.dispatch(addMovie('Whatever film', 'comedy'));
 
 store.dispatch(removeHobby(1));
 
