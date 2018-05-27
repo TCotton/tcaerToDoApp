@@ -1,4 +1,4 @@
-import { createStore } from 'redux';
+import { createStore, compose } from 'redux';
 
 const reducer = (state = {name: 'Anonymous'}, action) => {
 	console.log('new action');
@@ -12,7 +12,18 @@ const reducer = (state = {name: 'Anonymous'}, action) => {
 			return state;
 	}
 };
-const store = createStore(reducer);
+const store = createStore(reducer, compose(
+	window.devToolsExtension ? window.devToolsExtension() : f => f,
+));
+
+// Subscribe to changes
+const unsubscribe = store.subscribe(() => {
+	const state = store.getState();
+
+	document.getElementById('root').innerHTML = null;
+	console.log('name is', state.name);
+});
+
 const currentState = store.getState();
 console.log('currentState', currentState);
 
@@ -23,4 +34,19 @@ const action = {
 
 store.dispatch(action);
 
-console.log('Name should be andrew', store.getState());
+store.dispatch({
+	type: 'CHANGE_NAME',
+	name: 'Andrew'
+});
+
+unsubscribe();
+
+store.dispatch({
+	type: 'CHANGE_NAME',
+	name: 'Jim'
+});
+
+
+
+
+

@@ -6,10 +6,13 @@ import TodoApp from './components/TodoApp';
 
 import './styles/styles.scss';
 import './redux-example';
-import './redux-todo-example';
+
+/**
+* import './redux-todo-example';
+**/
 
 ReactDOM.render(
 	<TodoApp />,
-	document.getElementById('root')
+	document.querySelector('#root')
 );
 
