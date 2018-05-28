@@ -5,3 +5,10 @@ export const setSearchText = (searchText) => {
 	}
 };
 
+export const addToDo = (text) => {
+	return {
+		type: 'SET_SEARCH_TEXT',
+		text
+	}
+}
+

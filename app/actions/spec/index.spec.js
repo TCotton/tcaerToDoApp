@@ -1,4 +1,4 @@
-import { setSearchText } from '../index';
+import { setSearchText, addToDo } from '../index';
 
 fdescribe('Actions', () => {
 	it('should generate search text actions', () => {
@@ -10,6 +10,22 @@ fdescribe('Actions', () => {
 
 		const result = setSearchText(action.searchText);
 
-		expect(result.searchText).toBe(action.searchText);
+		expect(result.searchText).toEqual(action.searchText);
+		expect(result.type).toEqual(action.type);
+		expect(result).toEqual(action);
+	});
+
+	it('should generate add todo action', () => {
+
+		const action = {
+			type: 'SET_SEARCH_TEXT',
+			text: 'Some search text'
+		}
+
+		const result = addToDo(action.text);
+
+		expect(result.text).toEqual(action.text);
+		expect(result.type).toEqual(action.type);
+		expect(result).toEqual(action);
 	});
 });
