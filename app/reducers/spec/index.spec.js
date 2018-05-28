@@ -1,4 +1,4 @@
-import { searchTextReducer, showCompletedReducer } from '../index.js';
+import { searchTextReducer, showCompletedReducer, todosReducer } from '../index.js';
 import deepFreeze from 'deep-freeze-strict';
 
 fdescribe('Reducers', () => {
@@ -37,6 +37,40 @@ fdescribe('Reducers', () => {
 			const result = showCompletedReducer(deepFreeze({}), deepFreeze(action));
 
 			expect(result).not.toEqual(action.toggle);
+		});
+	});
+
+	describe('todosReducer', () => {
+		it('should add new todo', () => {
+			const action = {
+				type: 'ADD_TODO',
+				text: 'Walk the dog'
+			}
+
+			const result = todosReducer(deepFreeze([]), deepFreeze(action));
+
+			expect(result.length).toEqual(1);
+			expect(result[0].text).toEqual(action.text);
+		});
+
+		it('should toggle todo', () => {
+			const todos = [{
+				id: '123',
+				text: 'Something',
+				completed: true,
+				createdAt: 123,
+				completedAt: 123,
+			}];
+
+			const action = {
+				type: 'TOGGLE_TODO',
+				id: '123',
+			}
+
+			const result = todosReducer(deepFreeze(todos), deepFreeze(action));
+
+			expect(result[0].completed).toEqual(false);
+			expect(result[0].completedAt).toEqual(undefined);
 		});
 	});
 });
