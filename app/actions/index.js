@@ -50,10 +50,10 @@ export const completeLocationFetch = (url) => {
 	}
 };
 
-export const fetchLocation = (store) => {
+export const fetchLocation = () => {
 
 	return (dispatch, getState) => {
-		store.dispatch(startLocationFetch());
+		dispatch(startLocationFetch());
 
 		axios.get('https://ipinfo.io/').then((res) => {
 			const loc = res.data.loc;

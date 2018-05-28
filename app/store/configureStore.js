@@ -1,6 +1,6 @@
 import { compose, createStore, combineReducers, applyMiddleware } from 'redux'
 import { nameReducer, hobbiesReducer, moviesReducer, mapReducer } from '../reducers';
-import { ReduxThunk as thunk } from 'redux-thunk';
+import ReduxThunk from 'redux-thunk';
 
 export const configureStore = () => {
 
@@ -11,10 +11,8 @@ export const configureStore = () => {
 		map: mapReducer,
 	});
 
-	const store = createStore(reducer, compose(
-		applyMiddleware(thunk),
+	return createStore(reducer, compose(
+		applyMiddleware(ReduxThunk),
 		window.devToolsExtension ? window.devToolsExtension() : f => f,
 	));
-
-	return store;
 }
