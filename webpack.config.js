@@ -13,6 +13,7 @@ module.exports = {
 			TodoSearch: path.resolve(__dirname, 'app/components/TodoSearch.js'),
 			TodoAPI: path.resolve(__dirname, 'app/api/TodoAPI.js'),
 			actions: path.resolve(__dirname, 'app/actions/index.js'),
+			reducers: path.resolve(__dirname, 'app/reducers/index.js'),
 		}
 	},
 	module: {
