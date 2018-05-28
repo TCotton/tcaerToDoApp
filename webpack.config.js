@@ -12,6 +12,7 @@ module.exports = {
 			TodoList: path.resolve(__dirname, 'app/components/TodoList.js'),
 			TodoSearch: path.resolve(__dirname, 'app/components/TodoSearch.js'),
 			TodoAPI: path.resolve(__dirname, 'app/api/TodoAPI.js'),
+			actions: path.resolve(__dirname, 'app/actions/index.js'),
 		}
 	},
 	module: {
