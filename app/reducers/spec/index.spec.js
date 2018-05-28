@@ -16,23 +16,21 @@ fdescribe('Reducers', () => {
 	});
 
 	describe('showCompletedReducer', () => {
-		it('should return correct boolean', () => {
+		it('should return correct inverse boolean state', () => {
 
 			const action = {
 				type: 'TOGGLE_SHOW_COMPLETED',
-				toggle: true,
 			}
 
-			const result = showCompletedReducer({}, action);
+			const result = showCompletedReducer(true, action);
 
-			expect(result).toEqual(action.toggle);
+			expect(result).toEqual(false);
 		});
 
 		it('should return correct default', () => {
 
 			const action = {
-				type: 'NO_CASE_LISTED',
-				toggle: true,
+				type: 'NO_CASE_LISTED'
 			}
 
 			const result = showCompletedReducer({}, action);
