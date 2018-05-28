@@ -1,18 +1,14 @@
-import { compose, createStore, combineReducers, applyMiddleware } from 'redux'
-import { nameReducer, hobbiesReducer, moviesReducer, mapReducer } from '../reducers';
-import ReduxThunk from 'redux-thunk';
+import { searchTextReducer, showCompletedReducer, todosReducer } from '../reducers';
+import { combineReducers, compose, createStore } from 'redux';
 
-export const configureStore = () => {
-
+export const configure = () => {
 	const reducer = combineReducers({
-		name: nameReducer,
-		hobbies: hobbiesReducer,
-		movies: moviesReducer,
-		map: mapReducer,
+		searchText: searchTextReducer,
+		showCompleted: showCompletedReducer,
+		todos: todosReducer,
 	});
 
 	return createStore(reducer, compose(
-		applyMiddleware(ReduxThunk),
 		window.devToolsExtension ? window.devToolsExtension() : f => f,
 	));
 }

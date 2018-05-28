@@ -14,6 +14,7 @@ module.exports = {
 			TodoAPI: path.resolve(__dirname, 'app/api/TodoAPI.js'),
 			actions: path.resolve(__dirname, 'app/actions/index.js'),
 			reducers: path.resolve(__dirname, 'app/reducers/index.js'),
+			configureStore: path.resolve(__dirname, 'app/store/configureStore.js'),
 		}
 	},
 	module: {
