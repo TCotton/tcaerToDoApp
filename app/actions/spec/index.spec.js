@@ -37,13 +37,11 @@ fdescribe('Actions', () => {
 	it('should generate toggleShowCompleted action', () => {
 
 		const action = {
-			type: 'TOGGLE_SHOW_COMPLETED',
-			text: 'Some toggle text'
+			type: 'TOGGLE_SHOW_COMPLETED'
 		}
 
-		const result = toggleShowCompleted(action.text);
+		const result = toggleShowCompleted();
 
-		expect(result.text).toEqual(action.text);
 		expect(result.type).toEqual(action.type);
 		expect(result).toEqual(action);
 	});
@@ -52,12 +50,12 @@ fdescribe('Actions', () => {
 
 		const action = {
 			type: 'TOGGLE_TODO',
-			text: 'Some toggle text'
+			id: 'Some toggle text'
 		}
 
-		const result = toggleToDo(action.text);
+		const result = toggleToDo(action.id);
 
-		expect(result.text).toEqual(action.text);
+		expect(result.id).toEqual(action.id);
 		expect(result.type).toEqual(action.type);
 		expect(result).toEqual(action);
 	});

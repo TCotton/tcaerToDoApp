@@ -12,18 +12,15 @@ export const addToDo = (text) => {
 	}
 }
 
-export const toggleShowCompleted = (text) => {
+export const toggleShowCompleted = () => {
 	return {
-		type: 'TOGGLE_SHOW_COMPLETED',
-		text
+		type: 'TOGGLE_SHOW_COMPLETED'
 	}
 }
 
-export const toggleToDo = (text) => {
+export const toggleToDo = (id) => {
 	return {
 		type: 'TOGGLE_TODO',
-		text
+		id
 	}
 }
-
-
