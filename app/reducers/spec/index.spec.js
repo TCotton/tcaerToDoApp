@@ -1,4 +1,5 @@
 import { searchTextReducer, showCompletedReducer } from '../index.js';
+import deepFreeze from 'deep-freeze-strict';
 
 fdescribe('Reducers', () => {
 	describe('searchTextReducer', () => {
@@ -9,7 +10,7 @@ fdescribe('Reducers', () => {
 				searchText: 'This is search text',
 			}
 
-			const result = searchTextReducer({}, action);
+			const result = searchTextReducer(deepFreeze({}), deepFreeze(action));
 
 			expect(result).toEqual(action.searchText);
 		});
@@ -22,7 +23,7 @@ fdescribe('Reducers', () => {
 				type: 'TOGGLE_SHOW_COMPLETED',
 			}
 
-			const result = showCompletedReducer(true, action);
+			const result = showCompletedReducer(deepFreeze(true), deepFreeze(action));
 
 			expect(result).toEqual(false);
 		});
@@ -33,7 +34,7 @@ fdescribe('Reducers', () => {
 				type: 'NO_CASE_LISTED'
 			}
 
-			const result = showCompletedReducer({}, action);
+			const result = showCompletedReducer(deepFreeze({}), deepFreeze(action));
 
 			expect(result).not.toEqual(action.toggle);
 		});
