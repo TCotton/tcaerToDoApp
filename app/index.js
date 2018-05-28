@@ -1,5 +1,6 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import { Provider } from 'react-redux';
 // import { Route, Router, hashHistory, IndexRoute } from 'react-router';
 
 import TodoApp from './components/TodoApp';
@@ -20,7 +21,8 @@ store.dispatch(setSearchText('yard'));
 store.dispatch(toggleShowCompleted());
 
 ReactDOM.render(
-	<TodoApp />,
+	<Provider store={store}>
+		<TodoApp/>
+	</Provider>,
 	document.querySelector('#root')
 );
-
