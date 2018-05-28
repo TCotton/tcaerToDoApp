@@ -1,30 +1,11 @@
-import { createStore, compose } from 'redux';
-import axios from 'axios';
-import { reducer } from './store/configureStore';
 import {
-	startLocationFetch,
-	completeLocationFetch,
 	changeName,
 	addHobby,
 	addMovie,
-	removeHobby,
-	removeMovie,
+	fetchLocation,
 } from './actions';
 
-const fetchLocation = () => {
-	store.dispatch(startLocationFetch());
-
-	axios.get('https://ipinfo.io/').then((res) => {
-		const loc = res.data.loc;
-		const baseUrl = 'https://www.google.com/maps?q=';
-
-		store.dispatch(completeLocationFetch(baseUrl + loc));
-	});
-};
-
-const store = createStore(reducer, compose(
-	window.devToolsExtension ? window.devToolsExtension() : f => f,
-));
+import { configureStore as store } from './store/configureStore';
 
 // Subscribe to changes
 const unsubscribe = store.subscribe(() => {
@@ -38,7 +19,7 @@ const unsubscribe = store.subscribe(() => {
 	}
 });
 
-fetchLocation();
+store.dispatch(fetchLocation());
 
 const currentState = store.getState();
 console.log('currentState', currentState);
@@ -59,6 +40,8 @@ store.dispatch(addMovie('Die Hard', 'Action film'));
 
 store.dispatch(addMovie('Whatever film', 'comedy'));
 
-store.dispatch(removeHobby(1));
+// check addHobby isn't working
 
-store.dispatch(removeMovie(1));
+/*store.dispatch(removeHobby(1));
+
+store.dispatch(removeMovie(1));*/

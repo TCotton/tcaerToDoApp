@@ -1,3 +1,6 @@
+import axios from 'axios';
+import { createStore, compose } from 'redux';
+
 export const changeName = (name) => {
 	return {
 		type: 'CHANGE_NAME',
@@ -44,6 +47,20 @@ export const completeLocationFetch = (url) => {
 	return {
 		type: 'COMPLETE_LOCATION_FETCH',
 		url,
+	}
+};
+
+export const fetchLocation = (store) => {
+
+	return (dispatch, getState) => {
+		store.dispatch(startLocationFetch());
+
+		axios.get('https://ipinfo.io/').then((res) => {
+			const loc = res.data.loc;
+			const baseUrl = 'https://www.google.com/maps?q=';
+
+			dispatch(completeLocationFetch(baseUrl + loc));
+		});
 	}
 };
 
