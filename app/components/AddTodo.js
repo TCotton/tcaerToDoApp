@@ -1,8 +1,8 @@
 import React from 'react';
-import ReactClass from 'create-react-class';
 
-const AddTodo = ReactClass({
-  handleSubmit: function (e) {
+class AddTodo extends React.Component {
+
+  handleSubmit (e) {
     e.preventDefault();
     const todoText = this.refs.todoText.value;
 
@@ -12,8 +12,9 @@ const AddTodo = ReactClass({
     } else {
       this.refs.todoText.focus();
     }
-  },
-  render: function () {
+  }
+
+  render () {
     return (
       <div className="container__footer">
         <form onSubmit={this.handleSubmit}>
@@ -23,6 +24,7 @@ const AddTodo = ReactClass({
       </div>
     );
   }
-});
+
+}
 
 export default AddTodo;

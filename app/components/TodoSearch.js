@@ -1,28 +1,31 @@
 import React from 'react';
-import ReactClass from 'create-react-class';
+import TodoList from 'TodoList'
 
-const TodoSearch = ReactClass({
-  handleSearch: function () {
+class TodoSearch extends React.Component {
+
+	handleSearch () {
 		const showCompleted = this.refs.showCompleted.checked;
 		const searchText = this.refs.searchText.value;
 
-    this.props.onSearch(showCompleted, searchText);
-  },
-  render: function () {
-    return (
-      <div className="container__header">
-        <div>
-          <input type="search" ref="searchText" placeholder="Search todos" onChange={this.handleSearch}/>
-        </div>
-        <div>
-          <label>
-            <input type="checkbox" ref="showCompleted" onChange={this.handleSearch}/>
-            Show completed todos
-          </label>
-        </div>
-      </div>
-    )
-  }
-});
+		this.props.onSearch(showCompleted, searchText);
+	}
+
+	render () {
+		return (
+			<div className="container__header">
+				<div>
+					<input type="search" ref="searchText" placeholder="Search todos" onChange={this.handleSearch}/>
+				</div>
+				<div>
+					<label>
+						<input type="checkbox" ref="showCompleted" onChange={this.handleSearch}/>
+						Show completed todos
+					</label>
+				</div>
+			</div>
+		)
+	}
+
+}
 
 export default TodoSearch;

@@ -1,10 +1,10 @@
 import React from 'react';
-import ReactClass from 'create-react-class';
 import Todo from 'Todo';
+import TodoApp from 'TodoApp'
 
-const TodoList = ReactClass({
-	render: function () {
-		const {todos} = this.props;
+class TodoList extends React.Component{
+	render () {
+		const { todos}  = this.props;
 		const renderTodos = () => {
 			if (todos.length === 0) {
 				return (
@@ -25,6 +25,6 @@ const TodoList = ReactClass({
 			</div>
 		)
 	}
-});
+}
 
 export default TodoList;
